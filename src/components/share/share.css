@@ -1,0 +1,85 @@
+.share {
+  -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+  border-radius: 20px;
+  background-color: white;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.container {
+  padding: 20px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.top input {
+  border: none;
+  outline: none;
+  padding: 20px 10px;
+  background-color: transparent;
+  width: 60%;
+  color: #000;
+}
+
+hr {
+  margin: 20px 0;
+  border: none;
+  height: 0.5px;
+  background-color: lightgray;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.item img {
+  height: 20px;
+}
+
+.item span {
+  font-size: 12px;
+  color: gray;
+}
+
+.right button {
+  border: none;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #5271ff;
+  border-radius: 10px;
+  transition: .4s all ease;
+}
+
+.right button:hover {
+    background-color: #1b3196;
+  }
