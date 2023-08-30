@@ -102,6 +102,11 @@ button {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  transition: .4s all ease;
+}
+
+button:hover {
+  background-color: #1f37a5;
 }
 
 .right {
