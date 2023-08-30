@@ -13,10 +13,20 @@ import "./profile.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import UpdateProfileModal from "./UpdateProfileModal";
 
 function Profile() {
   const [userData, setUserData] = useState({});
   const { id } = useParams();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     axios
@@ -63,7 +73,11 @@ function Profile() {
             <div className="center">
               <span className="centerTitle">{userData.username}</span>
               <span>{userData.bio}</span>
-              <button>Update my profile</button>
+              <button onClick={handleOpenModal}>Update my profile</button>
+              <UpdateProfileModal
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+              />
             </div>
             <div className="right">
               <EmailOutlined />
