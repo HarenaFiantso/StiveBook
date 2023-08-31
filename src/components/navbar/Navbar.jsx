@@ -1,27 +1,8 @@
 import { Chat, Notifications, Person, Search } from "@mui/icons-material";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import "./navbar.css";
-import { useParams } from "react-router-dom";
+import profileImage from "../../assets/1.jpg"
 
 function Navbar() {
-  const [userData, setUserData] = useState({});
-  const { id } = useParams();
-
-  useEffect(() => {
-    axios
-      .get(`http://[::1]:8080/users/${id}`)
-      .then((response) => {
-        setUserData(response.data);
-      })
-      .catch((error) => {
-        console.error(
-          "Erreur lors de la récupération des données du profil utilisateur",
-          error
-        );
-      });
-  }, [id]);
-
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
@@ -51,7 +32,7 @@ function Navbar() {
             <span className="topbarIconBadge">1</span>
           </div>
         </div>
-        <img src={userData.photo} alt="" className="topbarImg" />
+        <img src={profileImage} alt="" className="topbarImg" />
       </div>
     </div>
   );
