@@ -6,34 +6,36 @@ import Map from "../../assets/5.png";
 
 function Share() {
   return (
-    <div className="share__component">
-      <div className="share__container">
-        <div className="top">
-          <img src={userImage} alt="" srcset="" />
-          <input type="text" placeholder="What's on you mind?" />
+    <div className="share">
+      <div className="shareWrapper">
+        <div className="shareTop">
+          <img src={userImage} alt="" className="shareProfileImg" />
+          <input
+            type="text"
+            placeholder="What's on you mind?"
+            className="shareInput"
+          />
         </div>
         <hr />
-        <div className="bottom">
-          <div className="left">
+        <div className="shareBottom">
+          <div className="shareOptions">
             <input type="file" id="file" style={{ display: "none" }} />
             <label htmlFor="file">
-              <div className="item">
+              <div className="shareOption">
                 <img src={Image} alt="" />
                 <span>Add Image</span>
               </div>
             </label>
-            <div className="item">
+            <div className="shareOption">
               <img src={Map} alt="" />
               <span>Add place</span>
             </div>
-            <div className="item">
+            <div className="shareOption">
               <img src={Friend} alt="" />
               <span>Tag Friends</span>
             </div>
           </div>
-          <div className="right">
-            <button className="share__btn">Share</button>
-          </div>
+          <button className="shareButton">Share</button>
         </div>
       </div>
     </div>
