@@ -31,17 +31,18 @@
   color: white;
 }
 
-h1 {
+.register .card .left h1 {
   font-size: 50px;
   line-height: 100px;
+  color: white;
 }
 
-span {
+.register .card .left span {
   font-size: 14px;
 }
 
-button {
-  width: 50%;
+.register .card .left button {
+  width: 100px;
   padding: 10px;
   border: none;
   background-color: white;
