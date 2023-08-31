@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Flex,
   Box,
@@ -16,17 +16,22 @@ import { useState } from 'react';
 import { post } from '../utils/api';
 
 export default function SimpleCard() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-    function log() {
-        post("users/login", {
+  async function log() {
+    try {
+        await post("users/login", {
             email: email,
             password: password
         }).then((res) => {
-            console.log(res);
-        })
+            location.href = "/";
+        });
+    } catch (error) {
+      console.log(error);
     }
+  }
 
   return (
     <Flex
@@ -35,20 +40,24 @@ export default function SimpleCard() {
       justify={'center'}
       bg={useColorModeValue('gray.50', 'gray.800')}>
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack align={'center'}>
+          <Heading fontSize={'4xl'} textAlign={'center'}>
+            Welcome, <br /> please Log in
+          </Heading>
+        </Stack>
         <Box
           rounded={'lg'}
           bg={useColorModeValue('white', 'gray.700')}
           boxShadow={'lg'}
           p={8}>
-        <Stack spacing={4}>
-            <Heading textAlign={'center'}>Welcome, please Login</Heading>
+          <Stack spacing={4}>
             <FormControl id="email">
-              <FormLabel>email</FormLabel>
-              <Input type=" " onChange={event => setEmail(event.target.value)}/>
+              <FormLabel>Email</FormLabel>
+              <Input type="" onChange={event => setEmail(event.target.value)} />
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input type="password" onChange={event => setPassword(event.target.value)}/>
+              <Input type="password" onChange={event => setPassword(event.target.value)} />
             </FormControl>
             <Stack spacing={10}>
               <Stack
@@ -65,11 +74,15 @@ export default function SimpleCard() {
                   bg: 'blue.500',
                 }}
                 onClick={log}
-                >
+              >
                 Sign in
               </Button>
             </Stack>
-            <Link to="/signup">Don't have an account? Sign Up</Link>
+            <Stack pt={6}>
+                <Text align={'center'}>
+                    new here? <Link to="/signup">join US</Link>
+                </Text>
+            </Stack>
           </Stack>
         </Box>
       </Stack>

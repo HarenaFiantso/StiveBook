@@ -16,27 +16,29 @@ import {
   import { Link as RouterLink } from 'react-router-dom'
   import { post } from '../utils/api';
   
-  export default function SignupCard() {
+export default function SignupCard() {
     const [showPassword, setShowPassword] = useState(false)
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    function signup() {
+    async function signup() {
         if (password === confirmPassword) {
-            post("users", {
-                username: username,
-                email: email,
-                password: password,
-                confirmPassword: confirmPassword
-            })
-        } else {
-            alert('Passwords do not match!');
+          try {
+            await post("users", {
+              username: username,
+              email: email,
+              password: password,
+              confirmPassword: confirmPassword
+            });
+            window.location.href = "/login";
+          } catch (error) {
+            console.error(error);
+          }
         }
     }
 
-  
     return (
       <Flex
         minH={'100vh'}
@@ -58,7 +60,7 @@ import {
               <FormControl>
                 <Box>
                   <FormControl id="firstName" isRequired>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Username (5 caractères min)</FormLabel>
                     <Input type="text" onChange={event => setUsername(event.target.value)}/>
                   </FormControl>
                 </Box>
@@ -68,7 +70,7 @@ import {
                 <Input type="email" onChange={event => setEmail(event.target.value)}/>
               </FormControl>
               <FormControl id="password" isRequired>
-                <FormLabel>Password</FormLabel>
+                <FormLabel>Password (8 caractères min)</FormLabel>
                 <InputGroup>
                   <Input type={showPassword ? 'text' : 'password'} onChange={event => setPassword(event.target.value)}/>
                   <InputRightElement h={'full'}>
