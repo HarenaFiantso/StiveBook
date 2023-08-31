@@ -1,0 +1,36 @@
+.rightbar {
+  flex: 3;
+  position: sticky;
+  top: 70px;
+  height: calc(100vh - 70px);
+  overflow: scroll;
+  background-color: #f6f3f3;
+}
+
+.rightbar &::-webkit-scrollbar {
+  display: none;
+}
+
+.rightbar .container {
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.rightbar .container h1 {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.rightbar .container p {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 14px;
+}
+
+.rightbar .container button {
+  margin-bottom: 10px;
+}

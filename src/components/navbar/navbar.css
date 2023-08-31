@@ -46,6 +46,7 @@
 .searchInput {
   border: none;
   width: 70%;
+  background: transparent;
 }
 
 .searchInput:focus {
