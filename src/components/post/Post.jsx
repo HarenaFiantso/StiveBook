@@ -1,89 +1,59 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import "./post.css";
 
-function Post() {
-  const [posts, setPosts] = useState([]);
-  const [newPost, setNewPost] = useState({
-    title: "",
-    content: "",
-    userId: "9b12d8e1-75b4-44e9-939f-e35807a27d35", // ID user nalaina tao am mock data
-  });
 
-  const API_URL = "http://localhost:8080";
+const Post = ({ post }) => {
+  const [commentOpen, setCommentOpen] = useState(false);
 
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  const fetchPosts = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/posts`);
-      setPosts(response.data);
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-    }
-  };
-
-  const handleNewPostChange = (event) => {
-    const { name, value } = event.target;
-    setNewPost((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleNewPostSubmit = async () => {
-    try {
-      const response = await axios.put(`${API_URL}/posts`, newPost);
-      console.log("New post created:", response.data);
-      fetchPosts();
-      setNewPost({
-        title: "",
-        content: "",
-        userId: "9b12d8e1-75b4-44e9-939f-e35807a27d35", // ID user nalaina tao am mock data
-      });
-    } catch (error) {
-      console.error("Error creating new post:", error);
-    }
-  };
+  //TEMPORARY
+  const liked = false;
 
   return (
-    <div>
-      <div className="allPostContainer">
-        <div className="eachPostContainer">
-          <div>
-            {posts.map((post) => (
-              <div key={post.id}>
-                <div className="postItem">
-                  <h3>{post.user.username}</h3>
-                  {post.content}
-                </div>
-              </div>
-            ))}
+    <div className="post">
+      <div className="container">
+        <div className="user">
+          <div className="userInfo">
+            <img src={post.profilePic} alt="" />
+            <div className="details">
+              <Link
+                to={`/profile/${post.userId}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <span className="name">{post.name}</span>
+              </Link>
+              <span className="date">1 min ago</span>
+            </div>
+          </div>
+          <MoreHorizIcon />
+        </div>
+        <div className="content">
+          <p>{post.desc}</p>
+          <img src={post.img} alt="" />
+        </div>
+        <div className="info">
+          <div className="item">
+            {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
+            12 Likes
+          </div>
+          <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
+            <TextsmsOutlinedIcon />
+            12 Comments
+          </div>
+          <div className="item">
+            <ShareOutlinedIcon />
+            Share
           </div>
         </div>
-      </div>
-
-      <div className="newPostContainer">
-        <h2>Create New Post</h2>
-        <input
-          type="text"
-          placeholder="Post title"
-          name="title"
-          value={newPost.title}
-          onChange={handleNewPostChange}
-        />
-        <textarea
-          placeholder="Content"
-          name="content"
-          value={newPost.content}
-          onChange={handleNewPostChange}
-        />
-        <button onClick={handleNewPostSubmit}>Submit</button>
+        {commentOpen && <Comments />}
       </div>
     </div>
   );
-}
+};
 
 export default Post;
