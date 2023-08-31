@@ -13,6 +13,7 @@ import "./profile.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Navbar from "../../components/navbar/Navbar"
 import UpdateProfileModal from "./UpdateProfileModal";
 
 function Profile() {
@@ -28,14 +29,11 @@ function Profile() {
 
   return (
     <>
+      <Navbar />
       <div className="profile">
         <div className="images">
           <img src={coverImage} alt="profile Image" className="cover" />
-          <img
-            src={profileImage}
-            alt="profile Image"
-            className="profilePic"
-          />
+          <img src={profileImage} alt="profile Image" className="profilePic" />
         </div>
         <div className="profileContainer">
           <div className="uInfo">
