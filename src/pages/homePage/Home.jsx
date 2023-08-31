@@ -7,18 +7,6 @@ import Rightbar from "../../components/rightbar/Rightbar";
 import { useEffect, useState } from "react";
 
 function Home() {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    get("posts")
-      .then((response) => {
-        setPosts(response);
-      })
-      .catch((error) => {
-        console.log("Error fetching posts:", error);
-      });
-  }, []);
-
   return (
     <div>
       <Navbar />
