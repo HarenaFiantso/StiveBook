@@ -1,7 +1,7 @@
 import {Link, useNavigate} from "react-router-dom";
 import "./register.css";
 import {useContext, useState} from "react";
-import {UserContext} from "../../context/authContext.jsx";
+import {UserContext} from "../../context/authContext";
 import {post} from "../../utils/api.js";
 
 const Register = () => {
