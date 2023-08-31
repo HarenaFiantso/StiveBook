@@ -7,17 +7,17 @@ import Rightbar from "../../components/rightbar/Rightbar";
 
 function Home() {
   return (
-      <div>
-          <Navbar />
-          <div style={{ display: "flex" }}>
-              <Leftbar />
-              <div style={{ flex: 6 }}>
-                  <Share/>
-                  <Posts/>
-              </div>
-              <Rightbar />
-          </div>
+    <div>
+      <Navbar />
+      <div style={{ display: "flex" }}>
+        <Leftbar />
+        <div style={{ flex: 6 }}>
+          <Share />
+          <Posts />
+        </div>
+        <Rightbar />
       </div>
+    </div>
   );
 }
 
