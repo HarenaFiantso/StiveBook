@@ -9,10 +9,8 @@ import "./post.css";
 import Comments from "../comments/Comments";
 
 
-const Post = ({ post }) => {
+const Post = ({ post, user }) => {
   const [commentOpen, setCommentOpen] = useState(false);
-
-  //TEMPORARY
   const liked = false;
 
   return (
@@ -20,21 +18,21 @@ const Post = ({ post }) => {
       <div className="container">
         <div className="user">
           <div className="userInfo">
-            <img src={post.profilePic} alt="" />
+            <img src={user.photo} alt="" />
             <div className="details">
               <Link
                 to={`/profile/${post.userId}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <span className="name">{post.name}</span>
+                <span className="name">{user.username}</span>
               </Link>
-              <span className="date">1 min ago</span>
+              <span className="date">{post.createdAt}</span>
             </div>
           </div>
           <MoreHorizIcon />
         </div>
         <div className="content">
-          <p>{post.desc}</p>
+          <p>{post.content}</p>
           <img src={post.img} alt="" />
         </div>
         <div className="info">

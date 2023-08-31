@@ -4,7 +4,6 @@ import Share from "../../components/share/Share";
 import "./home.css";
 import Leftbar from "../../components/leftbar/Leftbar";
 import Rightbar from "../../components/rightbar/Rightbar";
-import { useEffect, useState } from "react";
 
 function Home() {
   return (
@@ -14,7 +13,7 @@ function Home() {
         <Leftbar />
         <div style={{ flex: 6 }}>
           <Share />
-          <Posts posts={posts} />
+          <Posts />
         </div>
         <Rightbar />
       </div>
