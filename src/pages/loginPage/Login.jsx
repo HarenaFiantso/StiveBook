@@ -20,7 +20,7 @@ const Login = () => {
         .then((res) => {
           const token = res.token
           delete res.token;
-          login(res.data, token)
+          login(res.id, token)
           navigate("/");
         })
         .catch((error) => {
@@ -49,7 +49,7 @@ const Login = () => {
           <form>
             <input
                 type="text"
-                placeholder="email"
+                placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
             />

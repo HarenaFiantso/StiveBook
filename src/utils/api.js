@@ -11,7 +11,6 @@ const post = async (url, body) => {
             Authorization: token ? `Bearer ${token}` : '',
         },
     });
-    console.log(response.data)
     return response.data;
 };
 
