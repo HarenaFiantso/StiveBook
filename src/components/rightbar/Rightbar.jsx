@@ -11,6 +11,7 @@ const Rightbar = () => {
           ipsum, delectus animi vero illum eligendi reiciendis, fugiat quas
           fugit temporibus non?
         </p>
+        <button className="share__btn">View you profile</button>
         <button className="share__btn">Logout</button>
       </div>
     </div>
