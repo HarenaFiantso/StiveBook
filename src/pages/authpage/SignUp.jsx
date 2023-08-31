@@ -17,6 +17,19 @@ import {
   
   export default function SignupCard() {
     const [showPassword, setShowPassword] = useState(false)
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    function signup() {
+        post("users", {
+            username: username,
+            email: email,
+            password: password
+        }).then((res) => {
+            console.log(res);
+        })
+    }
   
     return (
       <Flex
@@ -40,18 +53,18 @@ import {
                 <Box>
                   <FormControl id="firstName" isRequired>
                     <FormLabel>Username</FormLabel>
-                    <Input type="text" />
+                    <Input type="text" onChange={event => setUsername(event.target.value)}/>
                   </FormControl>
                 </Box>
               </FormControl>
               <FormControl id="email" isRequired>
                 <FormLabel>Email address</FormLabel>
-                <Input type="email" />
+                <Input type="email" onChange={event => setEmail(event.target.value)}/>
               </FormControl>
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
-                  <Input type={showPassword ? 'text' : 'password'} />
+                  <Input type={showPassword ? 'text' : 'password'} onChange={event => setPassword(event.target.value)}/>
                   <InputRightElement h={'full'}>
                     <Button
                       variant={'ghost'}
@@ -69,7 +82,8 @@ import {
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
-                  }}>
+                  }}
+                  onClick={signup}>
                   Sign up
                 </Button>
               </Stack>
