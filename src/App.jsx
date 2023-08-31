@@ -27,7 +27,6 @@ const App = () => {
           <div style={{ flex: 6 }}>
             <Outlet />
           </div>
-          <Rightbar />
         </div>
       </div>
     );

@@ -7,7 +7,6 @@ import "./home.css";
 function Home() {
   return (
     <div className="home">
-      <Navbar />
       <Share />
       <Posts />
     </div>

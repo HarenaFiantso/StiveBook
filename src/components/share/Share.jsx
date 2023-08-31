@@ -6,8 +6,8 @@ import Map from "../../assets/5.png";
 
 function Share() {
   return (
-    <div className="share">
-      <div className="container">
+    <div className="share__component">
+      <div className="share__container">
         <div className="top">
           <img src={userImage} alt="" srcset="" />
           <input type="text" placeholder="What's on you mind?" />
@@ -32,7 +32,7 @@ function Share() {
             </div>
           </div>
           <div className="right">
-            <button>Share</button>
+            <button className="share__btn">Share</button>
           </div>
         </div>
       </div>
