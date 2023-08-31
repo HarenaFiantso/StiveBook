@@ -1,13 +1,35 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../context/AuthContext.jsx";
+import { UserContext } from "../../context/AuthContext";
+import axios from "axios";
 import "./login.css";
 
 const Login = () => {
   const { login } = useContext(UserContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleLogin = () => {
-    login();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/users/login",
+        {
+          email,
+          password,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const token = response.data.token;
+      localStorage.setItem("token", token);
+    } catch (error) {
+      setErrorMessage("Invalid credentials. Please try again.");
+    }
   };
 
   return (
@@ -20,18 +42,28 @@ const Login = () => {
             alias totam numquam ipsa exercitationem dignissimos, error nam,
             consequatur.
           </p>
-          {/* eslint-disable-next-line react/no-unescaped-entities */}
-          <span>Don't you have an account?</span>
+          <span>Don't have an account yet?</span>
           <Link to="/signup">
             <button>Register</button>
           </Link>
         </div>
         <div className="right">
           <h1>Login</h1>
-          <form>
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="Password" />
-            <button onClick={handleLogin}>Login</button>
+          {errorMessage && <p>{errorMessage}</p>}
+          <form onSubmit={handleLogin}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button type="submit">Login</button>
           </form>
         </div>
       </div>
