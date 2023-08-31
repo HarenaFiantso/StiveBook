@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/AuthContext.jsx";
-import {post} from "../../utils/api"
+import { post } from "../../utils/api";
 import "./login.css";
 
 const Login = () => {
@@ -9,23 +9,46 @@ const Login = () => {
   const { login } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+  const [loginError, setLoginError] = useState("");
+
+  const validatorForm = () => {
+    const newErrors = {};
+    if (!email) {
+      newErrors.email = "Email is required";
+    } else if (!password) {
+      newErrors.password = "Password is required";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
+
+    if (!validatorForm()) {
+      return;
+    }
+
     const values = {
       email: email,
       password: password,
     };
     post("users/login", values)
-        .then((res) => {
-          const token = res.token
-          delete res.token;
-          login(res.data, token)
-          navigate("/");
-        })
-        .catch((error) => {
-          console.error("Error logging in:", error);
-        });
+      .then((res) => {
+        const token = res.token;
+        delete res.token;
+        login(res.data, token);
+        navigate("/");
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          setLoginError("Invalid email or password");
+        } else {
+          console.log("Error logging in:", error);
+        }
+      });
   };
 
   return (
@@ -46,19 +69,24 @@ const Login = () => {
         </div>
         <div className="right">
           <h1>Login</h1>
+          {loginError && <div className="error"> {loginError} </div>}
           <form>
             <input
-                type="text"
-                placeholder="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
+            {errors.email && <div className="error"> {errors.email} </div>}
             <input
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
+            {errors.password && (
+              <div className="error"> {errors.password} </div>
+            )}
             <button onClick={handleLogin}>Login</button>
           </form>
         </div>
