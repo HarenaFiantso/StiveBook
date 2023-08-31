@@ -6,6 +6,7 @@ import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import "./post.css";
+import Comments from "../comments/Comments";
 
 
 const Post = ({ post }) => {
