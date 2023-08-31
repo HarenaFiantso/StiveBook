@@ -11,9 +11,11 @@ import Comments from "../comments/Comments";
 const Post = ({ post, user }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(post._count.reactions);
 
   const handleLike = () => {
     setLiked(!liked);
+    setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
   };
 
   return (
@@ -41,8 +43,9 @@ const Post = ({ post, user }) => {
         <div className="info">
           <div className="item" onClick={handleLike}>
             {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            12 Likes
+            {likeCount} Likes
           </div>
+
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
             12 Comments
