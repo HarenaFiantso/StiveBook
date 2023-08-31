@@ -1,36 +1,31 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../context/authContext";
-import axios from "axios";
-
+import {Link, useNavigate} from "react-router-dom";
+import { UserContext } from "../../context/AuthContext.jsx";
+import {post} from "../../utils/api"
 import "./login.css";
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { login } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/users/login",
-        {
-          email,
-          password,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      const token = response.data.token;
-      localStorage.setItem("token", token);
-    } catch (error) {
-      setErrorMessage("Invalid credentials. Please try again.");
-    }
+    const values = {
+      email: email,
+      password: password,
+    };
+    post("users/login", values)
+        .then((res) => {
+          const token = res.token
+          delete res.token;
+          login(res.data, token)
+          navigate("/");
+        })
+        .catch((error) => {
+          console.error("Error logging in:", error);
+        });
   };
 
   return (
@@ -43,28 +38,28 @@ const Login = () => {
             alias totam numquam ipsa exercitationem dignissimos, error nam,
             consequatur.
           </p>
-          <span>Don't you have an account?</span>
-          <Link to="/register">
+          {/* eslint-disable-next-line react/no-unescaped-entities */}
+          <span>Don't have an account yet?</span>
+          <Link to="/signup">
             <button>Register</button>
           </Link>
         </div>
         <div className="right">
           <h1>Login</h1>
-          {errorMessage && <p>{errorMessage}</p>}
-          <form onSubmit={handleLogin}>
+          <form>
             <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                placeholder="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
             />
             <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
             />
-            <button type="submit">Login</button>
+            <button onClick={handleLogin}>Login</button>
           </form>
         </div>
       </div>

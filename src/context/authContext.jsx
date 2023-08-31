@@ -1,51 +1,39 @@
-import { createContext, useEffect, useState } from "react";
+import Cookies from 'js-cookie';
+import { createContext, useState } from 'react';
+export const UserContext = createContext();
+function getDefaultValue(){
+  if(Cookies.get('token') && Cookies.get('user')){
+    return JSON.parse(Cookies.get('user'));
+  }
+  return null;
+}
 
-export const AuthContext = createContext();
+// eslint-disable-next-line react/prop-types
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(getDefaultValue());
+  const login = (newUser, token) => {
+    setUser({ ...user, ...newUser });
+    Cookies.set('email', JSON.stringify({ ...user, ...newUser }));
+    Cookies.set('token', token);
+  };
+  const isConnected = () => user !== null;
 
-const staticUserCredentials = [
-  {
-    username: "john.doe",
-    password: "password123",
-    id: 1,
-    name: "John Doe",
-    profilePic:
-      "https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600",
-  },
-  {
-    username: "jane.doe",
-    password: "password321",
-    id: 2,
-    name: "Jane Doe",
-    profilePic:
-      "https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600",
-  },
-];
-
-export const AuthContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
-
-  const login = (username, password) => {
-    const user = staticUserCredentials.find(
-      (cred) => cred.username === username && cred.password === password
-    );
-    if (user) {
-      setCurrentUser(user);
-    } else {
-      console.log("There is an error while trying to authenticate a user");
+  const getId = ()=>{
+    if(isConnected()){
+      return user.id;
     }
-    console.log(user);
+    return null;
+  }
+
+  const logout = () => {
+    Cookies.remove('token');
+    Cookies.remove('user');
+    setUser(null);
   };
 
-  useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(currentUser));
-  }, [currentUser]);
-  console.log(currentUser);
-
   return (
-    <AuthContext.Provider value={{ currentUser, login }}>
-      {children}
-    </AuthContext.Provider>
+      <UserContext.Provider value={{ user, login, logout, isConnected,getId }}>
+        {children}
+      </UserContext.Provider>
   );
-};
+}
