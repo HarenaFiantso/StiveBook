@@ -14,22 +14,28 @@ import {
 } from '@chakra-ui/react'
   import { useState } from 'react'
   import { Link as RouterLink } from 'react-router-dom'
+  import { post } from '../utils/api';
   
   export default function SignupCard() {
     const [showPassword, setShowPassword] = useState(false)
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     function signup() {
-        post("users", {
-            username: username,
-            email: email,
-            password: password
-        }).then((res) => {
-            console.log(res);
-        })
+        if (password === confirmPassword) {
+            post("users", {
+                username: username,
+                email: email,
+                password: password,
+                confirmPassword: confirmPassword
+            })
+        } else {
+            alert('Passwords do not match!');
+        }
     }
+
   
     return (
       <Flex
@@ -72,6 +78,12 @@ import {
                       {showPassword ? 'Hide' : 'Show'}
                     </Button>
                   </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <FormControl id="confirmPassword" isRequired> {/* Confirmation password form control */}
+                <FormLabel>Confirm Password</FormLabel>
+                <InputGroup>
+                  <Input type="password" onChange={event => setConfirmPassword(event.target.value)}/>
                 </InputGroup>
               </FormControl>
               <Stack spacing={10} pt={2}>
