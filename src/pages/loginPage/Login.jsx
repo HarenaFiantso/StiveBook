@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../context/authContext";
+import { UserContext } from "../../context/AuthContext.jsx";
 import "./login.css";
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  const { login } = useContext(UserContext);
 
   const handleLogin = () => {
     login();
@@ -20,8 +20,9 @@ const Login = () => {
             alias totam numquam ipsa exercitationem dignissimos, error nam,
             consequatur.
           </p>
+          {/* eslint-disable-next-line react/no-unescaped-entities */}
           <span>Don't you have an account?</span>
-          <Link to="/register">
+          <Link to="/signup">
             <button>Register</button>
           </Link>
         </div>
