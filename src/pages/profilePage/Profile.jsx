@@ -7,7 +7,7 @@ import {
   Pinterest,
 } from "@mui/icons-material";
 import coverImage from "../../assets/2.jpg";
-import Navbar from "../../components/navbar/Navbar";
+import profileImage from "../../assets/1.jpg";
 
 import "./profile.css";
 import { useEffect, useState } from "react";
@@ -16,8 +16,6 @@ import axios from "axios";
 import UpdateProfileModal from "./UpdateProfileModal";
 
 function Profile() {
-  const [userData, setUserData] = useState({});
-  const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -28,60 +26,27 @@ function Profile() {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    axios
-      .get(`http://[::1]:8080/users/${id}`)
-      .then((response) => {
-        setUserData(response.data);
-      })
-      .catch((error) => {
-        console.error(
-          "Erreur lors de la récupération des données du profil utilisateur",
-          error
-        );
-      });
-  }, [id]);
-
   return (
     <>
-      <Navbar />
       <div className="profile">
         <div className="images">
           <img src={coverImage} alt="profile Image" className="cover" />
           <img
-            src={userData.photo}
+            src={profileImage}
             alt="profile Image"
             className="profilePic"
           />
         </div>
         <div className="profileContainer">
           <div className="uInfo">
-            <div className="left">
-              <a href="https://web.facebook.com/fiantso.harena.3/">
-                <Facebook fontSize="large" />
-              </a>
-              <a href="https://web.facebook.com/fiantso.harena.3/">
-                <Instagram fontSize="large" />
-              </a>
-              <a href="https://web.facebook.com/fiantso.harena.3/">
-                <LinkedIn fontSize="large" />
-              </a>
-              <a href="https://web.facebook.com/fiantso.harena.3/">
-                <Pinterest fontSize="large" />
-              </a>
-            </div>
             <div className="center">
-              <span className="centerTitle">{userData.username}</span>
-              <span>{userData.bio}</span>
+              <span className="centerTitle">Fiantso Harena</span>
+              <span>God's worshiper</span>
               <button onClick={handleOpenModal}>Update my profile</button>
               <UpdateProfileModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
               />
-            </div>
-            <div className="right">
-              <EmailOutlined />
-              <MoreVert />
             </div>
           </div>
         </div>
