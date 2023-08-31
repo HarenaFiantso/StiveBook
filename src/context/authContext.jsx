@@ -1,29 +1,39 @@
-import { createContext, useEffect, useState } from "react";
+import Cookies from 'js-cookie';
+import { createContext, useState } from 'react';
+export const UserContext = createContext();
+function getDefaultValue(){
+  if(Cookies.get('token') && Cookies.get('user')){
+    return JSON.parse(Cookies.get('user'));
+  }
+  return null;
+}
 
-export const AuthContext = createContext();
+// eslint-disable-next-line react/prop-types
+export function AuthProvider({ children }) {
+  const [user, setUser] = useState(getDefaultValue());
+  const login = (newUser, token) => {
+    setUser({ ...user, ...newUser });
+    Cookies.set('user', JSON.stringify({ ...user, ...newUser }));
+    Cookies.set('token', token);
+  };
+  const isConnected = () => user !== null;
 
-export const AuthContextProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("user")) || null
-  );
+  const getId = ()=>{
+    if(isConnected()){
+      return user.id;
+    }
+    return null;
+  }
 
-  const login = () => {
-    //TO DO
-    setCurrentUser({
-      id: 1,
-      name: "John Doe",
-      profilePic:
-        "https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    });
+  const logout = () => {
+    Cookies.remove('token');
+    Cookies.remove('user');
+    setUser(null);
   };
 
-  useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(currentUser));
-  }, [currentUser]);
-
   return (
-    <AuthContext.Provider value={{ currentUser, login }}>
-      {children}
-    </AuthContext.Provider>
+      <UserContext.Provider value={{ user, login, logout, isConnected,getId }}>
+        {children}
+      </UserContext.Provider>
   );
-};
+}
