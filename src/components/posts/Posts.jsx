@@ -1,3 +1,4 @@
+import Post from "../post/Post";
 import "./posts.css";
 
 function Posts() {
@@ -23,8 +24,8 @@ function Posts() {
 
   return (
     <div className="posts">
-      {posts.map(post => (
-        <Post post={post} key={post.id}/>
+      {posts.map((post) => (
+        <Post post={post} key={post.id} />
       ))}
     </div>
   );
