@@ -8,10 +8,13 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import "./post.css";
 import Comments from "../comments/Comments";
 
-
 const Post = ({ post, user }) => {
   const [commentOpen, setCommentOpen] = useState(false);
-  const liked = false;
+  const [liked, setLiked] = useState(false);
+
+  const handleLike = () => {
+    setLiked(!liked);
+  };
 
   return (
     <div className="post">
@@ -36,7 +39,7 @@ const Post = ({ post, user }) => {
           <img src={post.img} alt="" />
         </div>
         <div className="info">
-          <div className="item">
+          <div className="item" onClick={handleLike}>
             {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
             12 Likes
           </div>
