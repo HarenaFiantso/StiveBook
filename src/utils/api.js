@@ -5,14 +5,13 @@ const host = "http://localhost:8080";
 const token = Cookies.get('token');
 
 const post = async (url, body) => {
-  const response = await axios.post(`${host}/${url}`, body, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Bearer ${token}` : '',
-    },
-  });
-  console.log(response.data)
-  return response.data;
+    const response = await axios.post(`${host}/${url}`, body, {
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: token ? `Bearer ${token}` : '',
+        },
+    });
+    return response.data;
 };
 
 const put = async (url, body) => {
