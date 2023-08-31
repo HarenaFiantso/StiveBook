@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Flex,
   Box,
@@ -18,7 +18,6 @@ import { post } from '../utils/api';
 export default function SimpleCard() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
 
   async function log() {
     try {
