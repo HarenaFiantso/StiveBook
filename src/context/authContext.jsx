@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(getDefaultValue());
   const login = (newUser, token) => {
     setUser({ ...user, ...newUser });
-    Cookies.set('user', JSON.stringify({ ...user, ...newUser }));
+    Cookies.set('email', JSON.stringify({ ...user, ...newUser }));
     Cookies.set('token', token);
   };
   const isConnected = () => user !== null;
