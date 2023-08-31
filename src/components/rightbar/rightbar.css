@@ -3,11 +3,12 @@
   position: sticky;
   top: 70px;
   height: calc(100vh - 70px);
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: #f6f3f3;
 }
 
-.rightbar &::-webkit-scrollbar {
+.rightbar ::-webkit-scrollbar {
   display: none;
 }
 
