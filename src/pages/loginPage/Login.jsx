@@ -31,7 +31,6 @@ const Login = () => {
     } catch (error) {
       setErrorMessage("Invalid credentials. Please try again.");
     }
-    console.log(token);
   };
 
   return (
