@@ -3,13 +3,21 @@ import userImage from "../../assets/1.jpg";
 import Image from "../../assets/3.png";
 import Friend from "../../assets/4.png";
 import Map from "../../assets/5.png";
+import { useContext } from "react";
+import { UserContext } from "../../context/AuthContext";
 
 function Share() {
+  const { user } = useContext(UserContext);
+
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img src={userImage} alt="" className="shareProfileImg" />
+          <img
+            src={user.photo || userImage}
+            alt=""
+            className="shareProfileImg"
+          />
           <input
             type="text"
             placeholder="What's on you mind?"
