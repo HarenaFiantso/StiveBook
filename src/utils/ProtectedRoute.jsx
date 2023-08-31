@@ -7,8 +7,8 @@ const ProtectedRoute = () => {
     const { isConnected } = useContext(UserContext);
 
     useEffect(() => {
-        if (isConnected()) {
-            navigate('/');
+        if (!isConnected()) {
+            navigate('/login');
         }
     }, [navigate, isConnected]);
 
