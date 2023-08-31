@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
@@ -8,10 +8,15 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import "./post.css";
 import Comments from "../comments/Comments";
 
-
 const Post = ({ post, user }) => {
   const [commentOpen, setCommentOpen] = useState(false);
-  const liked = false;
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(post._count.reactions);
+
+  const handleLike = () => {
+    setLiked(!liked);
+    setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
+  };
 
   return (
     <div className="post">
@@ -36,10 +41,11 @@ const Post = ({ post, user }) => {
           <img src={post.img} alt="" />
         </div>
         <div className="info">
-          <div className="item">
+          <div className="item" onClick={handleLike}>
             {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            12 Likes
+            {likeCount} Likes
           </div>
+
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
             12 Comments
