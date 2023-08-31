@@ -1,7 +1,7 @@
 import {Outlet, useNavigate} from "react-router-dom";
 import {useContext, useEffect} from "react";
-import {UserContext} from "../context/AuthContext.jsx";
-// eslint-disable-next-line react/prop-types
+import {UserContext} from "../context/AuthContext";
+
 const ProtectedRoute = () => {
     const navigate = useNavigate();
     const { isConnected } = useContext(UserContext);
