@@ -3,12 +3,13 @@
   position: sticky;
   top: 70px;
   height: calc(100vh - 70px);
-  overflow: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
   background-color: white;
   color: #555;
 }
 
-.leftbar &::-webkit-scrollbar {
+.leftbar ::-webkit-scrollbar {
   display: none;
 }
 
@@ -52,7 +53,7 @@
 .leftbar .menu .item {
     display: flex;
     align-items: center;
-    gap: 10pxx;
+    gap: 10px;
 }
 
 .leftbar .menu .item img {
