@@ -34,4 +34,7 @@
 
 .rightbar .container button {
   margin-bottom: 10px;
+  width: 100%;
+  font-size: calc(1rem + 0.5vw);
 }
+

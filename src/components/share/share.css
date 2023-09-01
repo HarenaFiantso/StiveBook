@@ -82,6 +82,8 @@ hr {
   border-radius: 10px;
   transition: 0.4s all ease;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  font-size: calc(0.7rem + 0.5vw);
+  width: 40%;
 }
 
 .shareButton:hover {
