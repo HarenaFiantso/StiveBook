@@ -2,51 +2,33 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const host = "http://localhost:8080";
-const token = Cookies.get('token');
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+axios.interceptors.request.use((config) => {
+    const token = Cookies.get('token');
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+});
 
 const post = async (url, body) => {
-    try {
-        const response = await axios.post(`${host}/${url}`, body, {
-            headers: token ? { Authorization: `Bearer ${token}` } : '',
-        });
-        return response.data;
-    } catch (error) {
-        throw new Error(error.message);
-    }
+    const response = await axios.post(`${host}/${url}`, body);
+    return response.data;
 };
 
 const put = async (url, body) => {
-    try {
-        const response = await axios.put(`${host}/${url}`, body, {
-            headers: token ? { Authorization: `Bearer ${token}` } : '',
-        });
-        return response.data;
-    } catch (error) {
-        throw new Error(error.message);
-    }
+    const response = await axios.put(`${host}/${url}`, body);
+    return response.data;
 };
 
 const get = async (url) => {
-    try {
-        const response = await axios.get(`${host}/${url}`, {
-            headers: token ? { Authorization: `Bearer ${token}` } :'',
-        });
-        return response.data;
-    } catch (error) {
-        throw new Error(error.message);
-    }
+    const response = await axios.get(`${host}/${url}`);
+    return response.data;
 };
 
 const remove = async (url) => {
-    try {
-        const response = await axios.delete(`${host}/${url}`, {
-            headers: token ? { Authorization: `Bearer ${token}` } : '',
-        });
-        return response.data;
-    } catch (error) {
-        throw new Error(error.message);
-    }
+    const response = await axios.delete(`${host}/${url}`);
+    return response.data;
 };
 
-export {post, get, put, remove};
-
+export { post, get, put, remove };

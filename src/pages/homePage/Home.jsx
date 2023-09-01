@@ -1,15 +1,22 @@
 import Navbar from "../../components/navbar/Navbar";
-import Post from "../../components/post/Post";
+import Posts from "../../components/posts/Posts";
 import Share from "../../components/share/Share";
-
 import "./home.css";
+import Leftbar from "../../components/leftbar/Leftbar";
+import Rightbar from "../../components/rightbar/Rightbar";
 
 function Home() {
   return (
-    <div className="home">
+    <div>
       <Navbar />
-      <Share />
-      <Post />
+      <div style={{ display: "flex" }}>
+        <Leftbar />
+        <div style={{ flex: 6 }}>
+          <Share />
+          <Posts />
+        </div>
+        <Rightbar />
+      </div>
     </div>
   );
 }

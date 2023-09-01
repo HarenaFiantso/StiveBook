@@ -1,31 +1,28 @@
 import { Chat, Notifications, Person, Search } from "@mui/icons-material";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import "./navbar.css";
-import { useParams } from "react-router-dom";
+import profileImage from "../../assets/1.jpg"
+import {useNavigate} from "react-router-dom";
+import {useContext} from "react";
+import {UserContext} from "../../context/AuthContext.jsx";
 
 function Navbar() {
-  const [userData, setUserData] = useState({});
-  const { id } = useParams();
-
-  useEffect(() => {
-    axios
-      .get(`http://[::1]:8080/users/${id}`)
-      .then((response) => {
-        setUserData(response.data);
-      })
-      .catch((error) => {
-        console.error(
-          "Erreur lors de la récupération des données du profil utilisateur",
-          error
-        );
-      });
-  }, [id]);
+    const navigate = useNavigate();
+    const { user } = useContext(UserContext);
+    const handleProfileClick= () => {
+        if (user && user.id) {
+            navigate(`/profile/${user.id}`);
+        } else {
+            navigate(`*`);
+        }
+    };
+    const handleNavigation = () => {
+        navigate('/');
+    };
 
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo">Stivebook</span>
+        <span className="logo" onClick={handleNavigation}>Stivebook</span>
       </div>
       <div className="topbarCenter">
         <div className="searchbar">
@@ -51,7 +48,7 @@ function Navbar() {
             <span className="topbarIconBadge">1</span>
           </div>
         </div>
-        <img src={userData.photo} alt="" className="topbarImg" />
+        <img src={user && user.photo ? user.photo : profileImage} alt="" className="topbarImg" onClick={handleProfileClick} />
       </div>
     </div>
   );
