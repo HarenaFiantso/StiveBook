@@ -13,11 +13,13 @@ function Share() {
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img
-            src={user.photo || userImage}
-            alt=""
-            className="shareProfileImg"
-          />
+          {user ? (
+              <img
+                  src={user.photo || userImage}
+                  alt=""
+                  className="shareProfileImg"
+              />
+          ) : null}
           <input
             type="text"
             placeholder="What's on you mind?"
