@@ -1,6 +1,6 @@
 import {Outlet, useNavigate} from "react-router-dom";
 import {useContext, useEffect} from "react";
-import {UserContext} from "../context/AuthContext";
+import {UserContext} from "../context/AuthContext.jsx";
 
 const ReRoute = () => {
     const navigate = useNavigate();

@@ -1,12 +1,28 @@
 import { Chat, Notifications, Person, Search } from "@mui/icons-material";
 import "./navbar.css";
 import profileImage from "../../assets/1.jpg"
+import {useNavigate} from "react-router-dom";
+import {useContext} from "react";
+import {UserContext} from "../../context/AuthContext.jsx";
 
 function Navbar() {
+    const navigate = useNavigate();
+    const { user } = useContext(UserContext);
+    const handleProfileClick= () => {
+        if (user && user.id) {
+            navigate(`/profile/${user.id}`);
+        } else {
+            navigate(`*`);
+        }
+    };
+    const handleNavigation = () => {
+        navigate('/');
+    };
+
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
-        <span className="logo">Stivebook</span>
+        <span className="logo" onClick={handleNavigation}>Stivebook</span>
       </div>
       <div className="topbarCenter">
         <div className="searchbar">
@@ -32,7 +48,7 @@ function Navbar() {
             <span className="topbarIconBadge">1</span>
           </div>
         </div>
-        <img src={profileImage} alt="" className="topbarImg" />
+        <img src={profileImage} alt="" className="topbarImg" onClick={handleProfileClick} />
       </div>
     </div>
   );
