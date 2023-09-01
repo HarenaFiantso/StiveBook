@@ -55,7 +55,7 @@ const Post = ({ post, user }) => {
         <div className="info">
           <div className="item" onClick={handleLike}>
             {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            {likeCount} Like(s)
+            {likeCount} Likes
           </div>
 
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
