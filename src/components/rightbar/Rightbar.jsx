@@ -5,7 +5,7 @@ import {UserContext} from "../../context/AuthContext.jsx";
 
 const Rightbar = () => {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const { user, logout } = useContext(UserContext);
   const handleProfileClick= () => {
     if (user && user.id) {
       navigate(`/profile/${user.id}`);
@@ -14,7 +14,7 @@ const Rightbar = () => {
     }
   };
   const handleLogoutClick = () => {
-    navigate('/logout');
+    logout();
   };
     return (
     <div className="rightbar">
