@@ -18,6 +18,7 @@
   -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
   box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
 }
+
 .register .card .left {
   flex: 1;
   background: linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)),
@@ -58,9 +59,12 @@
   flex-direction: column;
   gap: 50px;
   justify-content: center;
+  position: relative;
 }
-h1 {
+
+.right h1 {
   color: #555;
+  margin-bottom: 20px;
 }
 
 form {
@@ -68,6 +72,7 @@ form {
   flex-direction: column;
   gap: 30px;
 }
+
 input {
   border: none;
   border-bottom: 1px solid lightgray;
@@ -82,4 +87,19 @@ button {
   color: white;
   font-weight: bold;
   cursor: pointer;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  transition: opacity 1.5s ease-in-out; /* Animation pour faire disparaître les erreurs */
+  opacity: 1; /* L'opacité est initialement à 1, puis sera animée pour devenir 0 */
+}
+
+.error.hidden {
+  opacity: 0;
+  height: 0;
+  margin-top: 0;
+  overflow: hidden;
 }

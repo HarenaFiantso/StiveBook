@@ -1,6 +1,6 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/AuthContext.jsx";
+import { UserContext } from "../../context/AuthContext";
 import { post } from "../../utils/api";
 import "./login.css";
 
@@ -16,23 +16,39 @@ const Login = () => {
     const newErrors = {};
     if (!email) {
       newErrors.email = "Email is required";
+      setTimeout(() => {
+        setErrors({ ...errors, email: "" }); // Clear email error after 1.5 seconds
+      }, 1500);
     }
     if (!password) {
       newErrors.password = "Password is required";
+      setTimeout(() => {
+        setErrors({ ...errors, password: "" }); // Clear password error after 1.5 seconds
+      }, 1500);
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  const clearErrors = () => {
+    setLoginError("");
+    setErrors({});
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
-  
+
+    clearErrors(); // Clear previous errors
+
     if (!validatorForm()) {
-      setLoginError("Please fill in your informations");
+      setLoginError("Please fill in your information");
+      setTimeout(() => {
+        setLoginError(""); // Clear the error message after 1.5 seconds
+      }, 1500);
       return;
     }
-  
+
     const values = {
       email: email,
       password: password,
@@ -60,6 +76,10 @@ const Login = () => {
             console.log("Error logging in:", error);
           }
         }
+
+        setTimeout(() => {
+          setLoginError(""); // Clear the error message after 1.5 seconds
+        }, 1500);
       });
   };
 
@@ -73,7 +93,7 @@ const Login = () => {
             alias totam numquam ipsa exercitationem dignissimos, error nam,
             consequatur.
           </p>
-          <span>Don&apos;t have an account yet?</span>
+          <span>Don't have an account yet?</span>
           <Link to="/signup">
             <button>Register</button>
           </Link>
@@ -84,16 +104,22 @@ const Login = () => {
           <form>
             <input
               type="text"
-              placeholder="email"
+              placeholder="Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                clearErrors(); // Clear errors when typing
+              }}
             />
             {errors.email && <div className="error">{errors.email}</div>}
             <input
               type="password"
               placeholder="Password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                clearErrors(); // Clear errors when typing
+              }}
             />
             {errors.password && <div className="error">{errors.password}</div>}
             <button onClick={handleLogin}>Login</button>
