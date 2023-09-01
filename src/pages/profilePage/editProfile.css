@@ -73,6 +73,11 @@
     text-decoration: underline;
     cursor: pointer;
     letter-spacing: 0.05rem;
+    font-size: calc(0.7rem + 0.3vw);
+}
+
+.editUsernameBtn:hover{
+    width: 40%;
 }
 
 .editBioBtn {
@@ -85,6 +90,11 @@
     text-decoration: underline;
     cursor: pointer;
     letter-spacing: 0.05rem;
+    font-size: calc(0.7rem + 0.3vw);
+}
+
+.editBioBtn:hover{
+    width: 40%;
 }
 
 .editForm {
@@ -94,6 +104,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+  font-size: calc(1rem + 0.2vw);
 }
 
 .inputEdit{
@@ -107,6 +118,7 @@
     color: whitesmoke;
     padding-left: 20px;
     width: fit-content;
+     font-size: calc(0.9rem + 0.2vw);
 }
 
 .saveBtn {
@@ -121,6 +133,7 @@
     cursor: pointer;
     box-shadow: 2px 2px 8px 5px rgba(0, 0, 0, 0.15);
     transition: background-color .2s ease;
+    font-size: calc(0.9rem + 0.2vw);
 }
 
 .saveBtn:hover {
