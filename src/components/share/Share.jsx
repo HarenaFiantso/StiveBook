@@ -4,7 +4,7 @@ import Image from "../../assets/3.png";
 import Friend from "../../assets/4.png";
 import Map from "../../assets/5.png";
 import { useContext } from "react";
-import { UserContext } from "../../context/AuthContext";
+import { UserContext } from "../../context/AuthContext.jsx";
 
 function Share() {
   const { user } = useContext(UserContext);

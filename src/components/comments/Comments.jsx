@@ -1,4 +1,4 @@
-import { UserContext } from "../../context/AuthContext";
+import { UserContext } from "../../context/AuthContext.jsx";
 import "./comments.css";
 import { useContext } from "react";
 

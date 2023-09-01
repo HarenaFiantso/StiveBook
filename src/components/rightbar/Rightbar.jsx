@@ -1,7 +1,7 @@
 import "./rightbar.css";
 import { useNavigate } from 'react-router-dom';
 import {useContext} from "react";
-import {UserContext} from "../../context/authContext.jsx";
+import {UserContext} from "../../context/AuthContext.jsx";
 
 const Rightbar = () => {
   const navigate = useNavigate();
