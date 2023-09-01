@@ -29,7 +29,7 @@ const Login = () => {
     e.preventDefault();
   
     if (!validatorForm()) {
-      setLoginError("Please add some values");
+      setLoginError("Please fill in your informations");
       return;
     }
   
