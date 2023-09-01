@@ -1,18 +1,31 @@
 import "./rightbar.css";
+import { useNavigate } from 'react-router-dom';
+import {useContext} from "react";
+import {UserContext} from "../../context/AuthContext.jsx";
 
 const Rightbar = () => {
-  return (
+  const navigate = useNavigate();
+  const { user } = useContext(UserContext);
+  const handleProfileClick= () => {
+    if (user && user.id) {
+      navigate(`/profile/${user.id}`);
+    } else {
+      navigate(`*`);
+    }
+  };
+  const handleLogoutClick = () => {
+    navigate('/logout');
+  };
+    return (
     <div className="rightbar">
       <div className="container">
         <h1>Welcome to Stivebook ! </h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ad
-          mollitia sequi sint consequatur, excepturi tenetur voluptate. Et
-          ipsum, delectus animi vero illum eligendi reiciendis, fugiat quas
-          fugit temporibus non?
-        </p>
-        <button className="share__btn">View you profile</button>
-        <button className="share__btn">Logout</button>
+        <button className="share__btn" onClick={handleProfileClick}>
+          View your profile
+        </button>
+        <button className="share__btn" onClick={handleLogoutClick}>
+          Logout
+        </button>
       </div>
     </div>
   );
