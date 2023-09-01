@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
-import {Link, useNavigate} from "react-router-dom";
-import { UserContext } from "../../context/AuthContext";
-import {post} from "../../utils/api"
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/AuthContext.jsx";
+import { post } from "../../utils/api";
 import "./login.css";
 
 const Login = () => {
@@ -16,7 +16,8 @@ const Login = () => {
     const newErrors = {};
     if (!email) {
       newErrors.email = "Email is required";
-    } else if (!password) {
+    }
+    if (!password) {
       newErrors.password = "Password is required";
     }
 
@@ -26,11 +27,12 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
+  
     if (!validatorForm()) {
+      setLoginError("Please add some values");
       return;
     }
-
+  
     const values = {
       email: email,
       password: password,
@@ -39,14 +41,24 @@ const Login = () => {
       .then((res) => {
         const token = res.token;
         delete res.token;
-        login(res, token);
+        login(res.id, token);
         navigate("/");
       })
       .catch((error) => {
-        if (error.response && error.response.status === 401) {
-          setLoginError("Invalid email or password");
-        } else {
-          console.log("Error logging in:", error);
+        if (error.response) {
+          if (error.response.status === 401) {
+            setLoginError("Incorrect email or password");
+          } else if (error.response.status === 400) {
+            if (error.response.data.message === "Invalid email") {
+              setLoginError("Invalid email");
+            } else {
+              setLoginError("Incorrect email or password");
+            }
+          } else if (error.response.status === 404) {
+            setLoginError("Unknown user");
+          } else {
+            console.log("Error logging in:", error);
+          }
         }
       });
   };
@@ -61,7 +73,6 @@ const Login = () => {
             alias totam numquam ipsa exercitationem dignissimos, error nam,
             consequatur.
           </p>
-          {/* eslint-disable-next-line react/no-unescaped-entities */}
           <span>Don't have an account yet?</span>
           <Link to="/signup">
             <button>Register</button>
@@ -69,7 +80,7 @@ const Login = () => {
         </div>
         <div className="right">
           <h1>Login</h1>
-          {loginError && <div className="error"> {loginError} </div>}
+          {loginError && <div className="error">{loginError}</div>}
           <form>
             <input
               type="text"
@@ -77,16 +88,14 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {errors.email && <div className="error"> {errors.email} </div>}
+            {errors.email && <div className="error">{errors.email}</div>}
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {errors.password && (
-              <div className="error"> {errors.password} </div>
-            )}
+            {errors.password && <div className="error">{errors.password}</div>}
             <button onClick={handleLogin}>Login</button>
           </form>
         </div>
