@@ -39,7 +39,7 @@ const Login = () => {
       .then((res) => {
         const token = res.token;
         delete res.token;
-        login(res.id, token);
+        login(res, token);
         navigate("/");
       })
       .catch((error) => {
