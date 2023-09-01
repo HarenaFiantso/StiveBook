@@ -48,7 +48,7 @@ function Navbar() {
             <span className="topbarIconBadge">1</span>
           </div>
         </div>
-        <img src={profileImage} alt="" className="topbarImg" onClick={handleProfileClick} />
+        <img src={user && user.photo ? user.photo : profileImage} alt="" className="topbarImg" onClick={handleProfileClick} />
       </div>
     </div>
   );
