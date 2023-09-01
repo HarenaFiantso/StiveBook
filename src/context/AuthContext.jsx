@@ -29,7 +29,6 @@ export function AuthProvider({ children }) {
     Cookies.remove('token');
     Cookies.remove('user');
     setUser(null);
-    history.push('/login');
   };
 
   return (

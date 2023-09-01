@@ -1,35 +1,56 @@
-import {
-  EmailOutlined,
-  Facebook,
-  Instagram,
-  LinkedIn,
-  MoreVert,
-  Pinterest,
-} from "@mui/icons-material";
 import coverImage from "../../assets/2.jpg";
 import profileImage from "../../assets/1.jpg";
-
 import "./profile.css";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import Navbar from "../../components/navbar/Navbar"
-import UpdateProfileModal from "./UpdateProfileModal";
+import React, { useEffect, useState } from "react";
+import Navbar from "../../components/navbar/Navbar";
+import { useContext } from "react";
+import { UserContext } from "../../context/AuthContext.jsx";
+import EditProfile from "./EditProfile";
+import { get } from "../../utils/api"; // Import the 'get' function
 
 function Profile() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user } = useContext(UserContext);
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [username, setUsername] = useState("");
+  const [bio, setBio] = useState("no bio yet");
+
+  const handleEditSave = (updatedData) => {
+    if (updatedData) {
+      setUsername(updatedData.updatedUsername);
+      setBio(updatedData.updatedBio);
+    }
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const fetchData = async () => {
+    try {
+      const userData = await get(`users/${user.id}`); // Use the 'get' function
+
+      // Assuming 'get' returns an object with username and bio properties
+      setUsername(userData.username);
+      setBio(userData.bio || "no bio yet");
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, [user.id]);
 
   return (
     <>
       <Navbar />
+
+      {openEdit && (
+        <EditProfile
+          closeEdit={setOpenEdit}
+          onSaveChanges={handleEditSave}
+          initialUsername={username}
+          initialBio={bio}
+        />
+      )}
+
       <div className="profile">
         <div className="images">
           <img src={coverImage} alt="profile Image" className="cover" />
@@ -38,13 +59,9 @@ function Profile() {
         <div className="profileContainer">
           <div className="uInfo">
             <div className="center">
-              <span className="centerTitle">Fiantso Harena</span>
-              <span>God's worshiper</span>
-              <button onClick={handleOpenModal}>Update my profile</button>
-              <UpdateProfileModal
-                isOpen={isModalOpen}
-                onClose={handleCloseModal}
-              />
+              <span className="centerTitle">{username}</span>
+              <span>{bio}</span>
+              <button onClick={() => setOpenEdit(true)}>Update my profile</button>
             </div>
           </div>
         </div>
