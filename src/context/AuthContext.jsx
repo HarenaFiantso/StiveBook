@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 import { createContext , useState } from 'react';
-export const UserContext = createContext();
+export const UserContext = createContext({
+  isConnected: false,});
 function getDefaultValue(){
   if(Cookies.get('token') && Cookies.get('user')){
     return JSON.parse(Cookies.get('user'));
