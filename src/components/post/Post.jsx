@@ -27,12 +27,15 @@ const Post = ({ post, user }) => {
       });
   }, [post.id]);
 
+  const { user: contextUser } = useContext(UserContext);
+
   const handleLike = () => {
     const likeType = liked ? "DELETE" : "POST";
+    console.log(contextUser);
   
     axios({
       method: likeType,
-      url: `http://localhost:8080/posts/${post.id}/reactions`,
+      url: `posts/${post.id}/reactions`,
       data: {
         type: "LIKE",
         postId: post.id,
