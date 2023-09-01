@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
@@ -8,6 +8,8 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import "./post.css";
 import Comments from "../comments/Comments";
 import { get } from "../../utils/api";
+import axios from "axios";
+import { UserContext } from "../../context/AuthContext";
 
 const Post = ({ post, user }) => {
   const [commentOpen, setCommentOpen] = useState(false);
@@ -26,9 +28,26 @@ const Post = ({ post, user }) => {
   }, [post.id]);
 
   const handleLike = () => {
-    setLiked(!liked);
-    setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
+    const likeType = liked ? "DELETE" : "POST";
+  
+    axios({
+      method: likeType,
+      url: `http://localhost:8080/posts/${post.id}/reactions`,
+      data: {
+        type: "LIKE",
+        postId: post.id,
+        userId: user.id,
+      },
+    })
+      .then(() => {
+        setLiked(!liked);
+        setLikeCount((prevCount) => (liked ? prevCount - 1 : prevCount + 1));
+      })
+      .catch((error) => {
+        console.log("Erreur lors de la gestion du like :", error);
+      });
   };
+  
 
   return (
     <div className="post">
