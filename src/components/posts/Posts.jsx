@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect, useContext} from "react";
 import { get } from "../../utils/api";
 import Post from "../post/Post";
 import "./posts.css";
+import {UserContext} from "../../context/AuthContext.jsx";
 
 function Posts() {
   const [posts, setPosts] = useState([]);
   const [userDetailsMap, setUserDetailsMap] = useState({});
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     get("posts")
@@ -42,6 +44,7 @@ function Posts() {
       {posts.map((post) => {
         const userDetails = userDetailsMap[post.userId];
         if (userDetails) {
+          console.log(user)
           return <Post post={post} user={userDetails} key={post.id} />;
         } else {
           return null;
