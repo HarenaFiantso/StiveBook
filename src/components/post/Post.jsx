@@ -7,11 +7,23 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import "./post.css";
 import Comments from "../comments/Comments";
+import { get } from "../../utils/api";
 
 const Post = ({ post, user }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(post._count.reactions);
+  const [comments, setComments] = useState(post._count.comments);
+
+  useEffect(() => {
+    get(`posts/${post.id}/comments`)
+      .then((response) => {
+        setComments(response);
+      })
+      .catch((error) => {
+        console.log("Error fetching comments:", error);
+      });
+  }, [post.id]);
 
   const handleLike = () => {
     setLiked(!liked);
@@ -48,7 +60,7 @@ const Post = ({ post, user }) => {
 
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />
-            12 Comments
+            {comments.length} Comments
           </div>
           <div className="item">
             <ShareOutlinedIcon />
