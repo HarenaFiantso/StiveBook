@@ -105,6 +105,11 @@ button {
   transition: .4s all ease;
 }
 
+.updateProfile{
+  font-size: calc(1rem + 0.4vw);
+  width: 30%;
+}
+
 button:hover {
   background-color: #1f37a5;
 }

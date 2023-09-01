@@ -61,7 +61,7 @@ function Profile() {
             <div className="center">
               <span className="centerTitle">{username}</span>
               <span>{bio}</span>
-              <button onClick={() => setOpenEdit(true)}>Update my profile</button>
+              <button className="updateProfile" onClick={() => setOpenEdit(true)}>Update my profile</button>
             </div>
           </div>
         </div>
