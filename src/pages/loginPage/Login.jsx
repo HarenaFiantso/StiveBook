@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/AuthContext.jsx";
 import { post } from "../../utils/api";
@@ -41,7 +41,7 @@ const Login = () => {
       .then((res) => {
         const token = res.token;
         delete res.token;
-        login(res.id, token);
+        login(res, token);
         navigate("/");
       })
       .catch((error) => {
@@ -73,7 +73,7 @@ const Login = () => {
             alias totam numquam ipsa exercitationem dignissimos, error nam,
             consequatur.
           </p>
-          <span>Don't have an account yet?</span>
+          <span>Don&apos;t have an account yet?</span>
           <Link to="/signup">
             <button>Register</button>
           </Link>
