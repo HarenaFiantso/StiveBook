@@ -17,7 +17,7 @@ const Register = () => {
     e.preventDefault();
 
     if (!username && !email && !password && !confirmPassword) {
-      setErrorMessage("Please add some values");
+      setErrorMessage("Please fill in the following inputs");
       return;
     }
 
