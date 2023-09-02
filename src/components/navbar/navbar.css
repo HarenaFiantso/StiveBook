@@ -77,6 +77,13 @@
   margin-right: 15px;
   cursor: pointer;
   position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.logoutIcon{
+  width: 32px !important;
+  height: 32px !important;
 }
 
 .topbarIconBadge {

@@ -40,7 +40,7 @@ function Navbar() {
       <div className="topbarRight">
         <div className="topbarIcons">
           <div className="topbarIconItem" onClick={handleLogoutClick}>
-            <Logout />
+            <Logout className="logoutIcon"/>
           </div>
         </div>
         <img src={user && user.photo ? user.photo : profileImage} alt="" className="topbarImg" onClick={handleProfileClick} />
