@@ -1,4 +1,4 @@
-import { Chat, Notifications, Person, Search } from "@mui/icons-material";
+import { Logout, Search } from "@mui/icons-material";
 import "./navbar.css";
 import profileImage from "../../assets/1.jpg"
 import {useNavigate} from "react-router-dom";
@@ -7,13 +7,17 @@ import {UserContext} from "../../context/AuthContext.jsx";
 
 function Navbar() {
     const navigate = useNavigate();
-    const { user } = useContext(UserContext);
+    const { user, logout } = useContext(UserContext);
     const handleProfileClick= () => {
         if (user && user.id) {
             navigate(`/profile/${user.id}`);
         } else {
             navigate(`*`);
         }
+    };
+    const handleLogoutClick = () => {
+        logout();
+        navigate('/login');
     };
     const handleNavigation = () => {
         navigate('/');
@@ -35,17 +39,8 @@ function Navbar() {
       </div>
       <div className="topbarRight">
         <div className="topbarIcons">
-          <div className="topbarIconItem">
-            <Person />
-            <span className="topbarIconBadge">1</span>
-          </div>
-          <div className="topbarIconItem">
-            <Chat />
-            <span className="topbarIconBadge">2</span>
-          </div>
-          <div className="topbarIconItem">
-            <Notifications />
-            <span className="topbarIconBadge">1</span>
+          <div className="topbarIconItem" onClick={handleLogoutClick}>
+            <Logout />
           </div>
         </div>
         <img src={user && user.photo ? user.photo : profileImage} alt="" className="topbarImg" onClick={handleProfileClick} />
